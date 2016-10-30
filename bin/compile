@@ -151,6 +151,13 @@ chmod a+x "$NODE"
 
 # Add npm and node path so that 1.4's npm-rebuild.js will function.
 PATH="$METEOR_DIR/.meteor:`dirname $METEOR_NPM`:$COMPILE_DIR/bin:$PATH"
+echo "-----> Using node: `$NODE --version`"
+echo "----->    and npm: `$METEOR_NPM --version`"
+
+$METEOR_NPM cache clean -f
+$METEOR_NPM install -g n
+METEOR_N=`find $METEOR_DIR -wholename "*/dev_bundle/bin/n"`
+$METEOR_N stable
 
 echo "-----> Using node: `$NODE --version`"
 echo "----->    and npm: `$METEOR_NPM --version`"
@@ -159,7 +166,7 @@ echo "----->    and npm: `$METEOR_NPM --version`"
 # may need devDependencies (e.g. webpack) in order to build the meteor app.
 if [ -e "$APP_SOURCE_DIR"/package.json ]; then
   $METEOR_NPM install
-  $METEOR_NPM phantomjs -g
+  $METEOR_NPM install phantomjs -g
 fi
 
 # Related to https://github.com/meteor/meteor/issues/2796 and 

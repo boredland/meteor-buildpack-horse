@@ -154,14 +154,6 @@ PATH="$METEOR_DIR/.meteor:`dirname $METEOR_NPM`:$COMPILE_DIR/bin:$PATH"
 echo "-----> Using node: `$NODE --version`"
 echo "----->    and npm: `$METEOR_NPM --version`"
 
-$METEOR_NPM cache clean -f
-$METEOR_NPM install -g n
-METEOR_N=`find $METEOR_DIR -wholename "*/dev_bundle/bin/n"`
-$METEOR_N stable
-
-echo "-----> Using node: `$NODE --version`"
-echo "----->    and npm: `$METEOR_NPM --version`"
-
 # If we use npm on root, run npm install.  Don't use `--production` here, as we
 # may need devDependencies (e.g. webpack) in order to build the meteor app.
 if [ -e "$APP_SOURCE_DIR"/package.json ]; then
